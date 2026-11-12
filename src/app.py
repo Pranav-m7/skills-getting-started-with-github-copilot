@@ -5,7 +5,7 @@ A super simple FastAPI application that allows students to view and sign up
 for extracurricular activities at Mergington High School.
 """
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 import os
@@ -84,7 +84,8 @@ def root():
 
 
 @app.get("/activities")
-def get_activities():
+def get_activities(response: Response):
+    response.headers["Cache-Control"] = "no-store"
     return activities
 
 
